@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DisplayMenu.cs" />
+    <Compile Include="HelperLog.cs" />
     <Compile Include="JobLogger.cs" />
     <Compile Include="LogMessages.cs" />
     <Compile Include="Program.cs" />
