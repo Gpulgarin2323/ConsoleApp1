@@ -8,7 +8,7 @@ namespace Logs
 {
     class HelperLogger
     {
-        public void HelperSaveLogger(string Message, int TypeMessage, int OptionOfSave)
+        public void HelperSaveLogger(string Message, int TypeMessage, int OptionOfSave = 1)
         {
             Message.Trim();
             if (Message == null || Message.Length == 0)

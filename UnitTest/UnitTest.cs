@@ -14,7 +14,7 @@ namespace UnitTest
         [TestMethod]
         public void TestMethodHelperSaveLogger()
         {
-            SaveLog.LogMessage("prueba nueva", 3, 1);
+            SaveLog.LogMessage("prueba nueva", 3, 2);
         }
     }
 }
