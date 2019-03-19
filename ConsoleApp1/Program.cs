@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using Logs;
+﻿using Logs;
+using System;
 
 namespace ConsoleApp1
 {
@@ -9,9 +7,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-           var option = DisplayMenu.DisplayMenus();
-           //LogMessages.LogMessage("prueba1",true,true,false, option);
-            SaveLog.LogMessage("prueba nueva",3,1);
+            SaveLog.LogMessage("prueba nueva", 3, 1);
             Console.ReadKey();
         }
     }

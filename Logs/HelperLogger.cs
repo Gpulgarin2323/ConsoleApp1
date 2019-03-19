@@ -10,11 +10,23 @@ namespace Logs
     {
         public void HelperSaveLogger(string Message, int TypeMessage, int OptionOfSave)
         {
+            Message.Trim();
+            if (Message == null || Message.Length == 0)
+            {
+                return;
+            }
+            if (TypeMessage == 0)
+            {
+                throw new Exception("Error or Warning or Message must be specified");
+            }
             switch (OptionOfSave)
             {
+
                 case 1:
                     try
                     {
+                        var appSettings = ConfigurationManager.AppSettings;
+                        var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                         using (SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]))
                         {
                             con.Open();
@@ -38,10 +50,10 @@ namespace Logs
                         }
                         break;
                     }
-                    catch (Exception)
+                    catch (Exception ex )
                     {
 
-                        throw;
+                        throw new Exception("Invalid configuration");
                     }
                 case 2:
                     try
@@ -57,10 +69,10 @@ namespace Logs
                         l = l + DateTime.Now.ToShortDateString() + Message;
                         File.WriteAllText(ConfigurationManager.AppSettings["LogFileDirectory"] + date, l);
                     }
-                    catch (Exception)
+                    catch (Exception ex )
                     {
 
-                        throw;
+                        throw new Exception("Invalid configuration");
                     }
                     break;
                 default:
@@ -77,10 +89,10 @@ namespace Logs
                         l = l + DateTime.Now.ToShortDateString() + Message;
                         File.WriteAllText(ConfigurationManager.AppSettings["LogFileDirectory"] + date, l);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
 
-                        throw;
+                        throw new Exception("Invalid configuration");
                     }
                     break;
             }
