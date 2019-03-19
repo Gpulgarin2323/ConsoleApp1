@@ -7,7 +7,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            SaveLog.LogMessage("prueba nueva", 3, 1);
+            SaveLog.LogMessage("prueba nueva", 1, 1);
             Console.ReadKey();
         }
     }

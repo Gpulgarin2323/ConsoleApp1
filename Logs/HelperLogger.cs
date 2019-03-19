@@ -52,8 +52,11 @@ namespace Logs
                     }
                     catch (Exception ex )
                     {
-
                         throw new Exception("Invalid configuration");
+                    }
+                    finally
+                    {
+                        Console.WriteLine(DateTime.Now.ToShortDateString() + Message);
                     }
                 case 2:
                     try
@@ -71,7 +74,6 @@ namespace Logs
                     }
                     catch (Exception ex )
                     {
-
                         throw new Exception("Invalid configuration");
                     }
                     break;
@@ -91,7 +93,6 @@ namespace Logs
                     }
                     catch (Exception ex)
                     {
-
                         throw new Exception("Invalid configuration");
                     }
                     break;
