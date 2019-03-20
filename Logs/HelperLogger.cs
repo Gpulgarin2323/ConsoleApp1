@@ -8,6 +8,9 @@ namespace Logs
 {
     class HelperLogger
     {
+        private const string MessageException = "Invalid configuration";
+        private const string MessageExceptionError = "Error or Warning or Message must be specified";
+
         public void HelperSaveLogger(string Message, int TypeMessage, int OptionOfSave = 1)
         {
             Message.Trim();
@@ -15,23 +18,19 @@ namespace Logs
             {
                 return;
             }
-            if (TypeMessage == 0)
-            {
-                throw new Exception("Error or Warning or Message must be specified");
-            }
             switch (OptionOfSave)
             {
                 case 1:
                     try
                     {
-                        var appSettings = ConfigurationManager.AppSettings;
-                        var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                         using (SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]))
                         {
                             con.Open();
-                            var query = ("INSERT INTO Log VALUES('" + Message + "', " + TypeMessage.ToString() + ")");
-                            SqlCommand comando = new SqlCommand(query, con);
-                            comando.CommandType = CommandType.Text;
+                            string query = "INSERT INTO Log VALUES('" + Message + "', " + TypeMessage.ToString() + ")";
+                            SqlCommand comando = new SqlCommand(query, con)
+                            {
+                                CommandType = CommandType.Text
+                            };
                             comando.ExecuteNonQuery();
                         }
 
@@ -48,12 +47,15 @@ namespace Logs
                             case 3:
                                 Console.ForegroundColor = ConsoleColor.White;
                                 break;
+                            default:
+                                Console.ForegroundColor = ConsoleColor.White;
+                                break;
                         }
                         break;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        throw new Exception("Invalid configuration");
+                        throw new Exception(MessageException);
                     }
                     finally
                     {
@@ -70,13 +72,16 @@ namespace Logs
                             File.Create(ConfigurationManager.AppSettings["LogFileDirectory"] + date);
                         }
 
-                        l = l + DateTime.Now.ToShortDateString() + Message;
+                        l =  DateTime.Now.ToShortDateString()+ " " + Message + " " + TypeMessage;
                         File.WriteAllText(ConfigurationManager.AppSettings["LogFileDirectory"] + date, l);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        throw new Exception("Invalid configuration");
+                        throw new Exception(MessageException);
                     }
+                    break;
+                default:
+                    Console.WriteLine(MessageException);
                     break;
             }
         }
