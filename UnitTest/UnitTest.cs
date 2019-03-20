@@ -11,6 +11,7 @@ namespace UnitTest
         public void TestMethodSaveLog()
         {
             SaveLog.LogMessage("new test", 1, 2);
+            SaveLog.LogMessage("new test 2", 1, 2);
         }
 
         [TestMethod]

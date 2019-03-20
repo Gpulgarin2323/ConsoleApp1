@@ -73,7 +73,9 @@ namespace Logs
                         }
 
                         l =  DateTime.Now.ToShortDateString()+ " " + Message + " " + TypeMessage;
-                        File.WriteAllText(ConfigurationManager.AppSettings["LogFileDirectory"] + date, l);
+                        StreamWriter sw = new StreamWriter(ConfigurationManager.AppSettings["LogFileDirectory"] + date,true);
+                        sw.WriteLine(l);
+                        sw.Close();
                     }
                     catch (Exception)
                     {
