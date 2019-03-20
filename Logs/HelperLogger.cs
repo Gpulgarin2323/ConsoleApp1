@@ -50,7 +50,7 @@ namespace Logs
                         }
                         break;
                     }
-                    catch (Exception ex )
+                    catch (Exception ex)
                     {
                         throw new Exception("Invalid configuration");
                     }
@@ -59,25 +59,6 @@ namespace Logs
                         Console.WriteLine(DateTime.Now.ToShortDateString() + Message);
                     }
                 case 2:
-                    try
-                    {
-                        string l = string.Empty;
-                        string date = "LogFiles" + DateTime.Now.ToShortDateString().Replace("/", "") + ".txt";
-
-                        if (!File.Exists(ConfigurationManager.AppSettings["LogFileDirectory"] + date))
-                        {
-                            File.Create(ConfigurationManager.AppSettings["LogFileDirectory"] + date);
-                        }
-
-                        l = l + DateTime.Now.ToShortDateString() + Message;
-                        File.WriteAllText(ConfigurationManager.AppSettings["LogFileDirectory"] + date, l);
-                    }
-                    catch (Exception ex )
-                    {
-                        throw new Exception("Invalid configuration");
-                    }
-                    break;
-                default:
                     try
                     {
                         string l = string.Empty;
