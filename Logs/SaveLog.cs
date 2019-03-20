@@ -1,5 +1,4 @@
-﻿using System;
-namespace Logs
+﻿namespace Logs
 {
     public class SaveLog
     {

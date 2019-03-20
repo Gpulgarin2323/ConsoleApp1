@@ -21,7 +21,6 @@ namespace Logs
             }
             switch (OptionOfSave)
             {
-
                 case 1:
                     try
                     {
@@ -41,9 +40,11 @@ namespace Logs
                             case 1:
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 break;
+
                             case 2:
                                 Console.ForegroundColor = ConsoleColor.Yellow;
                                 break;
+
                             case 3:
                                 Console.ForegroundColor = ConsoleColor.White;
                                 break;

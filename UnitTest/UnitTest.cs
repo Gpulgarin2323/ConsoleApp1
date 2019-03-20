@@ -1,10 +1,6 @@
-﻿using System;
-using Logs;
+﻿using Logs;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO;
 
 namespace UnitTest
 {
@@ -12,7 +8,7 @@ namespace UnitTest
     public class UnitTest
     {
         [TestMethod]
-        public void TestMethodHelperSaveLogger()
+        public void TestMethodSaveLog()
         {
             SaveLog.LogMessage("prueba nueva", 3, 2);
         }
