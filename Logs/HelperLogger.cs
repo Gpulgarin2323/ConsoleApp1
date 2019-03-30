@@ -9,7 +9,6 @@ namespace Logs
 {
    public class HelperLogger
     {
-
         private const string MessageException = "Invalid configuration";
         private const string MessageExceptionError = "Error or Warning or Message must be specified";
 

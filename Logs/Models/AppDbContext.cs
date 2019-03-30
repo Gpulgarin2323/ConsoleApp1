@@ -11,11 +11,8 @@ namespace Logs.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
             optionsBuilder.UseSqlServer(ConfigurationManager.AppSettings["ConnectionString"]);
-
         }
-
 
         public DbSet<Logs> Logs { get; set; }
     }
