@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logs.Models;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,13 +7,15 @@ using System.IO;
 
 namespace Logs
 {
-    class HelperLogger
+   public class HelperLogger
     {
+
         private const string MessageException = "Invalid configuration";
         private const string MessageExceptionError = "Error or Warning or Message must be specified";
 
-        public void HelperSaveLogger(string Message, int TypeMessage, int OptionOfSave = 1)
+        public static void HelperSaveLogger(string Message, int TypeMessage, int OptionOfSave = 1)
         {
+            var log = new Models.Logs();
             Message.Trim();
             if (Message == null || Message.Length == 0)
             {
@@ -23,16 +26,26 @@ namespace Logs
                 case 1:
                     try
                     {
-                        using (SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]))
+                        using (var Context = new AppDbContext())
                         {
-                            con.Open();
-                            string query = "INSERT INTO Log VALUES('" + Message + "', " + TypeMessage.ToString() + ")";
-                            SqlCommand comando = new SqlCommand(query, con)
-                            {
-                                CommandType = CommandType.Text
-                            };
-                            comando.ExecuteNonQuery();
+                            log.Message = Message;
+                            log.TypeMessage = TypeMessage.ToString();
+                            log.Date = DateTime.Now.Date;
+
+                            Context.Logs.Add(log);
+                            Context.SaveChanges();
                         }
+
+                        //using (SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]))
+                        //{
+                        //    con.Open();
+                        //    string query = "INSERT INTO Log VALUES('" + Message + "', " + TypeMessage.ToString() + ")";
+                        //    SqlCommand comando = new SqlCommand(query, con)
+                        //    {
+                        //        CommandType = CommandType.Text
+                        //    };
+                        //    comando.ExecuteNonQuery();
+                        //}
 
                         switch (TypeMessage)
                         {
@@ -69,7 +82,7 @@ namespace Logs
 
                         if (!File.Exists(ConfigurationManager.AppSettings["LogFileDirectory"] + date))
                         {
-                            File.Create(ConfigurationManager.AppSettings["LogFileDirectory"] + date);
+                            File.Create(ConfigurationManager.AppSettings["LogFileDirectory"] + date).Close();
                         }
 
                         l =  DateTime.Now.ToShortDateString()+ " " + Message + " " + TypeMessage;
@@ -77,7 +90,7 @@ namespace Logs
                         sw.WriteLine(l);
                         sw.Close();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         throw new Exception(MessageException);
                     }
