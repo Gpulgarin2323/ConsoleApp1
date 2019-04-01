@@ -9,11 +9,13 @@ namespace Logs
 {
    public class HelperLogger
     {
+        public enum MessageType { Message = 1, Warning = 2, Error = 3 }
         private const string MessageException = "Invalid configuration";
         private const string MessageExceptionError = "Error or Warning or Message must be specified";
 
         public static void HelperSaveLogger(string Message, int TypeMessage, int OptionOfSave = 1)
         {
+
             var log = new Models.Logs();
             Message.Trim();
             if (Message == null || Message.Length == 0)
@@ -45,6 +47,7 @@ namespace Logs
                         //    };
                         //    comando.ExecuteNonQuery();
                         //}
+                       
 
                         switch (TypeMessage)
                         {
@@ -65,7 +68,7 @@ namespace Logs
                         }
                         break;
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         throw new Exception(MessageException);
                     }
