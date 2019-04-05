@@ -37,18 +37,6 @@ namespace Logs
                             Context.SaveChanges();
                         }
 
-                        //using (SqlConnection con = new SqlConnection(ConfigurationManager.AppSettings["ConnectionString"]))
-                        //{
-                        //    con.Open();
-                        //    string query = "INSERT INTO Log VALUES('" + Message + "', " + TypeMessage.ToString() + ")";
-                        //    SqlCommand comando = new SqlCommand(query, con)
-                        //    {
-                        //        CommandType = CommandType.Text
-                        //    };
-                        //    comando.ExecuteNonQuery();
-                        //}
-                       
-
                         switch (TypeMessage)
                         {
                             case 1:
